@@ -52,11 +52,19 @@ class ListMovieFragment : Fragment() {
 
     private fun configObservers() {
 
+
+
         lifecycleScope.launch {
             movieListViewModel.flow.collectLatest { pagingData ->
                 adapterRv.submitData(pagingData)
             }
         }
+
+        movieListViewModel.randomMovie().observe(viewLifecycleOwner, Observer { movies ->
+            movies?.let {
+                adapterRv.adapterVP.list.addAll(movies)
+            }
+        })
 
         movieListViewModel.stateNavigateToDetailMovie().observe(viewLifecycleOwner, Observer { movie ->
             //navigate to detail movie

@@ -14,8 +14,8 @@ import java.io.IOException
 
 class MovieListViewModel(private val movieService: IMoviesService) : ViewModel() {
 
-    private val _pageMovies: MutableLiveData<PageListMovies> = MutableLiveData()
-    fun pageMovies(): LiveData<PageListMovies> = _pageMovies
+    private val _randomMovie: MutableLiveData<List<Movie>> = MutableLiveData()
+    fun randomMovie(): LiveData<List<Movie>> = _randomMovie
 
     private val _stateNavigateToDetailMovie: MutableLiveData<Movie> = MutableLiveData()
     fun stateNavigateToDetailMovie(): LiveData<Movie> = _stateNavigateToDetailMovie
@@ -25,14 +25,14 @@ class MovieListViewModel(private val movieService: IMoviesService) : ViewModel()
     }.flow.cachedIn(viewModelScope)
 
     init {
-        //getAllMovies()
+        getAllMovies()
     }
 
     private fun getAllMovies() {
         viewModelScope.launch {
             try{
-                val movies = movieService.getPopularMovies()
-                _pageMovies.value = movies
+                val movies = movieService.getPopularMovies(5)
+                _randomMovie.value = movies?.results?.subList(0, 3)?: emptyList()
             }catch (e: IOException){
 
             }
