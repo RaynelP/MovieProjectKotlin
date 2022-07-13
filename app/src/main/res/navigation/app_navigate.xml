@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigate"
+    app:startDestination="@id/fragmentList">
+
+    <fragment
+        android:id="@+id/fragmentList"
+        android:name="com.raynel.alkemyproject.movieList.ListMovieFragment"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_fragmentList_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailMovieFragment"
+        android:name="com.raynel.alkemyproject.movieDetail.MovieDetailFragment"
+        tools:layout="@layout/fragment_detail_movie">
+        <action
+            android:id="@+id/action_detailMovieFragment_to_ratingDialogFragment"
+            app:destination="@id/ratingDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/ratingDialogFragment"
+        android:name="com.raynel.alkemyproject.movieDetail.RatingDialogFragment"
+        android:label="RatingDialogFragment" >
+        <action
+            android:id="@+id/action_ratingDialogFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
+    </dialog>
+</navigation>
