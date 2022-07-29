@@ -18,17 +18,5 @@
     <fragment
         android:id="@+id/detailMovieFragment"
         android:name="com.raynel.alkemyproject.movieDetail.MovieDetailFragment"
-        tools:layout="@layout/fragment_detail_movie">
-        <action
-            android:id="@+id/action_detailMovieFragment_to_ratingDialogFragment"
-            app:destination="@id/ratingDialogFragment" />
-    </fragment>
-    <dialog
-        android:id="@+id/ratingDialogFragment"
-        android:name="com.raynel.alkemyproject.movieDetail.RatingDialogFragment"
-        android:label="RatingDialogFragment" >
-        <action
-            android:id="@+id/action_ratingDialogFragment_to_detailMovieFragment"
-            app:destination="@id/detailMovieFragment" />
-    </dialog>
+        tools:layout="@layout/fragment_detail_movie"/>
 </navigation>

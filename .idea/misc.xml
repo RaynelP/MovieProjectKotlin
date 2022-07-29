@@ -5,15 +5,18 @@
       <map>
         <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1545" />
         <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/drawable/backgraund.xml" value="0.16" />
+        <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/drawable/ic_baseline_refresh_24.xml" value="0.1" />
         <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.11" />
         <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/drawable/ic_baseline_search_off_24.xml" value="0.1" />
         <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/drawable/ic_baseline_star_rate_24.xml" value="0.1" />
         <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1545" />
         <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/layout/buttons.xml" value="0.17239583333333333" />
-        <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/layout/fragment_detail_movie.xml" value="0.25" />
+        <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/layout/error_network.xml" value="0.25" />
+        <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/layout/fragment_detail_movie.xml" value="0.1" />
+        <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/layout/fragment_error.xml" value="0.25" />
         <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/layout/fragment_images.xml" value="0.1657754010695187" />
-        <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/layout/fragment_list.xml" value="0.15" />
+        <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/layout/fragment_list.xml" value="0.1" />
         <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/layout/fragment_rating_dialog.xml" value="0.1" />
         <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/layout/image_view.xml" value="0.1734375" />
         <entry key="..\:/Users/Raynel/AndroidStudioProjects/AlkemyProject/app/src/main/res/layout/images.xml" value="0.1" />

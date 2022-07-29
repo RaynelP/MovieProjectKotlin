@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.raynel.alkemyproject.R
 import com.raynel.alkemyproject.databinding.FragmentDetailMovieBinding
 import com.raynel.alkemyproject.formatDescriptionAndGenres
@@ -75,6 +76,18 @@ class MovieDetailFragment : Fragment() {
                     startActivity(browserIntent)
 
                     doneNavigationWebBrowser()
+                }
+            })
+
+            error().observe(viewLifecycleOwner, Observer { error ->
+                error?.let {
+                    if(error){
+                        val error = Snackbar.make(binding.root, getString(R.string.error_network), Snackbar.LENGTH_INDEFINITE)
+                        error.setAction("retry", View.OnClickListener {
+                            movieDetailViewModel.retry()
+                        })
+                        error.show()
+                    }
                 }
             })
 

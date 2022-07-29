@@ -18,6 +18,9 @@ class DetailMovieViewModel(private val movieService: IMoviesService,
     private val _navigateToMovieWeb: MutableLiveData<MovieDetail> = MutableLiveData()
     fun navigateToMovieWeb(): LiveData<MovieDetail> = _navigateToMovieWeb
 
+    private val _error: MutableLiveData<Boolean> = MutableLiveData()
+    fun error(): LiveData<Boolean> = _error
+
     init {
         _showLoading.value = false
         getDetailMovie()
@@ -29,22 +32,28 @@ class DetailMovieViewModel(private val movieService: IMoviesService,
             try {
                 val movie: MovieDetail? = movieService.getMovieDetails(idMovie)
                 _detailMovie.value = movie
-            }catch (e: Exception){
-
+            } catch (e: Exception) {
+                _showLoading.value = false
+                _error.value = true
             }
         }
     }
 
-    fun doneShowLoanding(){
+    fun doneShowLoanding() {
         _showLoading.value = false
     }
 
-    fun navigateToMovieWebBrowser(){
+    fun navigateToMovieWebBrowser() {
         _navigateToMovieWeb.value = _detailMovie.value
     }
 
-    fun doneNavigationWebBrowser(){
+    fun doneNavigationWebBrowser() {
         _navigateToMovieWeb.value = null
+    }
+
+    fun retry(){
+        _showLoading.value = false
+        getDetailMovie()
     }
 
 }

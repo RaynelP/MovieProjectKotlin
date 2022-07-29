@@ -6,9 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.raynel.alkemyproject.Repository.MoviesPageSource
 import com.raynel.alkemyproject.model.Movie
-import com.raynel.alkemyproject.model.PageListMovies
 import com.raynel.challenge.Repository.Network.Interface.IMoviesService
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -20,21 +18,27 @@ class MovieListViewModel(private val movieService: IMoviesService) : ViewModel()
     private val _stateNavigateToDetailMovie: MutableLiveData<Movie> = MutableLiveData()
     fun stateNavigateToDetailMovie(): LiveData<Movie> = _stateNavigateToDetailMovie
 
+    private val _retry: MutableLiveData<Boolean> = MutableLiveData()
+    fun retry(): LiveData<Boolean> = _retry
+
+    private val _error: MutableLiveData<Boolean> = MutableLiveData()
+    fun error(): LiveData<Boolean> = _error
+
     val flow = Pager(PagingConfig(1000)){
         MoviesPageSource(movieService)
     }.flow.cachedIn(viewModelScope)
 
     init {
-        getAllMovies()
+        getMoviesRandom()
     }
 
-    private fun getAllMovies() {
+    fun getMoviesRandom() {
         viewModelScope.launch {
             try{
                 val movies = movieService.getPopularMovies(5)
                 _randomMovie.value = movies?.results?.subList(0, 3)?: emptyList()
             }catch (e: IOException){
-
+                showError()
             }
         }
     }
@@ -47,6 +51,21 @@ class MovieListViewModel(private val movieService: IMoviesService) : ViewModel()
         _stateNavigateToDetailMovie.value = null
     }
 
+    fun startRetry(){
+        _retry.value = true
+    }
+
+    fun doneRetry(){
+        _retry.value = null
+    }
+
+    fun showError(){
+        _error.value = true
+    }
+
+    fun doneShowError(){
+        _error.value = null
+    }
 }
 
 class MovieViewModelFactory(private val movieService: IMoviesService) : ViewModelProvider.Factory {

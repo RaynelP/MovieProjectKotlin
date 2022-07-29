@@ -3,13 +3,16 @@ package com.raynel.alkemyproject.movieList
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.paging.filter
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.raynel.alkemyproject.R
 import com.raynel.alkemyproject.databinding.FragmentListBinding
 import com.raynel.alkemyproject.model.Movie
@@ -52,8 +55,6 @@ class ListMovieFragment : Fragment() {
 
     private fun configObservers() {
 
-
-
         lifecycleScope.launch {
             movieListViewModel.flow.collectLatest { pagingData ->
                 adapterRv.submitData(pagingData)
@@ -65,6 +66,33 @@ class ListMovieFragment : Fragment() {
                 adapterRv.adapterVP.list.addAll(movies)
             }
         })
+
+        movieListViewModel.retry().observe(viewLifecycleOwner, Observer { retry ->
+            retry?.let {
+                movieListViewModel.getMoviesRandom()
+                adapterRv.retry()
+                movieListViewModel.doneRetry()
+            }
+        })
+
+        movieListViewModel.error().observe(viewLifecycleOwner, Observer { showError ->
+            showError?.let {
+                 val error = Snackbar.make(binding.root,
+                     getString(R.string.error_network), Snackbar.LENGTH_INDEFINITE)
+                 error.setAction("retry", View.OnClickListener {
+                     movieListViewModel.startRetry()
+                 })
+                 error.show()
+             }
+        })
+
+        lifecycleScope.launch {
+            adapterRv.loadStateFlow.collectLatest { loadState ->
+                if(loadState.refresh is LoadState.Error){
+                    movieListViewModel.showError()
+                }
+            }
+        }
 
         movieListViewModel.stateNavigateToDetailMovie().observe(viewLifecycleOwner, Observer { movie ->
             //navigate to detail movie
