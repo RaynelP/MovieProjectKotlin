@@ -33,8 +33,10 @@ class ListMovieFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
         // Inflate the layout for this fragment
-        binding = FragmentListBinding.inflate(inflater, container, false)
+        binding = FragmentListBinding
+            .inflate(inflater, container, false)
 
         configViewModel()
         configList()
@@ -61,15 +63,8 @@ class ListMovieFragment : Fragment() {
             }
         }
 
-        movieListViewModel.randomMovie().observe(viewLifecycleOwner, Observer { movies ->
-            movies?.let {
-                adapterRv.adapterVP.list.addAll(movies)
-            }
-        })
-
         movieListViewModel.retry().observe(viewLifecycleOwner, Observer { retry ->
             retry?.let {
-                movieListViewModel.getMoviesRandom()
                 adapterRv.retry()
                 movieListViewModel.doneRetry()
             }
@@ -89,7 +84,7 @@ class ListMovieFragment : Fragment() {
         lifecycleScope.launch {
             adapterRv.loadStateFlow.collectLatest { loadState ->
                 if(loadState.refresh is LoadState.Error){
-                    movieListViewModel.showError()
+                    movieListViewModel.onError()
                 }
             }
         }
@@ -104,6 +99,17 @@ class ListMovieFragment : Fragment() {
             }
         })
 
+        movieListViewModel.isLoading().observe(viewLifecycleOwner, Observer { isLoading ->
+            isLoading?.let {
+                val visibility = if(isLoading){
+                    View.VISIBLE
+                }else{
+                    View.GONE
+                }
+                binding.progressBar.visibility = visibility
+            }
+        })
+
     }
 
     private fun configList(){
@@ -112,14 +118,7 @@ class ListMovieFragment : Fragment() {
         })
 
         val gridLayout = GridLayoutManager(context, 3)
-        gridLayout.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                if (position == 0) {
-                    return gridLayout.spanCount
-                }
-                return 1
-            }
-        }
+
         binding.movieList.apply {
             adapter = adapterRv
             layoutManager = gridLayout

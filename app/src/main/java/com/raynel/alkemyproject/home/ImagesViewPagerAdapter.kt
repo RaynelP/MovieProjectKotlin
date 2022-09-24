@@ -1,4 +1,4 @@
-package com.raynel.alkemyproject.movieList
+package com.raynel.alkemyproject.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import com.squareup.picasso.Picasso
 
 class ImagesViewPagerAdapter: RecyclerView.Adapter<ImagesViewPagerAdapter.ImagesViewHoder>() {
 
-    val list: MutableList<Movie> = mutableListOf()
+    var list: MutableList<Movie> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImagesViewHoder {
         val inflater = LayoutInflater.from(parent.context)

@@ -3,20 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_navigate"
-    app:startDestination="@id/fragmentList">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/fragmentList"
+        android:id="@+id/searchFragment"
         android:name="com.raynel.alkemyproject.movieList.ListMovieFragment"
         tools:layout="@layout/fragment_list" >
+
         <action
             android:id="@+id/action_fragmentList_to_detailMovieFragment"
             app:destination="@id/detailMovieFragment"
             app:enterAnim="@android:anim/slide_in_left" />
+
     </fragment>
 
     <fragment
         android:id="@+id/detailMovieFragment"
         android:name="com.raynel.alkemyproject.movieDetail.MovieDetailFragment"
         tools:layout="@layout/fragment_detail_movie"/>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.raynel.alkemyproject.home.HomeFragment"
+        android:label="HomeFragment" />
+
 </navigation>

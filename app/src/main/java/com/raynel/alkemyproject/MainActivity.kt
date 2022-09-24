@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.raynel.alkemyproject.databinding.ActivityMainBinding
 
@@ -18,6 +19,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         configActionBarWithNavController()
+
+        configBottomNavigation()
+    }
+
+    private fun configBottomNavigation() {
+        val appConfig = AppBarConfiguration(
+            setOf(
+                R.id.homeFragment,
+                R.id.searchFragment
+            )
+        )
+        NavigationUI
+            .setupActionBarWithNavController(this, getNavController(), appConfig)
+        NavigationUI
+            .setupWithNavController(binding.navigationBottom, getNavController())
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
