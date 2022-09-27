@@ -1,21 +1,17 @@
-package com.raynel.alkemyproject.movieList
+package com.raynel.alkemyproject.view.movieList
 
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.paging.filter
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.raynel.alkemyproject.R
 import com.raynel.alkemyproject.databinding.FragmentListBinding
-import com.raynel.alkemyproject.model.Movie
 import com.raynel.alkemyproject.view.MovieListAdapter
 import com.raynel.alkemyproject.view.OnClickListener
 import com.raynel.challenge.Repository.Network.Impl.MovieServiceImpl
@@ -38,6 +34,7 @@ class ListMovieFragment : Fragment() {
         binding = FragmentListBinding
             .inflate(inflater, container, false)
 
+        setHasOptionsMenu(false)
         configViewModel()
         configList()
         configObservers()

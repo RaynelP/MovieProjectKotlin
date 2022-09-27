@@ -1,7 +1,7 @@
 package com.raynel.alkemyproject.home
 
 import androidx.lifecycle.*
-import com.raynel.alkemyproject.GenericViewModel
+import com.raynel.alkemyproject.util.GenericViewModel
 import com.raynel.alkemyproject.model.Movie
 import com.raynel.challenge.Repository.Network.Interface.IMoviesService
 import kotlinx.coroutines.launch

@@ -7,7 +7,7 @@ data class MovieDetail(
     val budget: Int,
     val genres: List<Genre>,
     val homepage: String,
-    val id: Int,
+    val id: Long,
     val imdb_id: String,
     val original_language: String,
     val original_title: String,

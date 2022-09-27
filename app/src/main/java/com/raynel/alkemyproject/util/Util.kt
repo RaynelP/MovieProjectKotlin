@@ -6,7 +6,10 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
+import android.view.View
+import android.widget.Toast
 import androidx.core.text.set
+import com.google.android.material.snackbar.Snackbar
 import com.raynel.alkemyproject.model.Movie
 import com.raynel.alkemyproject.model.MovieDetail
 
@@ -48,3 +51,12 @@ fun formatDescriptionAndGenres(movie: MovieDetail, context: Context): SpannableS
     val spannable = SpannableString(text)
     return spannable
 }
+
+fun showMessageWithSnackBar(context: Context, view: View, message: String){
+    Toast
+        .makeText(context, message, Toast.LENGTH_SHORT)
+        .show()
+    //Snackbar
+    //    .make(view, menssage, Snackbar.LENGTH_SHORT)
+    //    .show()
+}//

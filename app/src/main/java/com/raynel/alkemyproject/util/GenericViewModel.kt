@@ -1,4 +1,4 @@
-package com.raynel.alkemyproject
+package com.raynel.alkemyproject.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

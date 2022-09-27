@@ -4,12 +4,10 @@ import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.raynel.alkemyproject.GenericViewModel
+import com.raynel.alkemyproject.util.GenericViewModel
 import com.raynel.alkemyproject.Repository.MoviesPageSource
 import com.raynel.alkemyproject.model.Movie
 import com.raynel.challenge.Repository.Network.Interface.IMoviesService
-import kotlinx.coroutines.launch
-import java.io.IOException
 
 class MovieListViewModel(private val movieService: IMoviesService) : GenericViewModel() {
 

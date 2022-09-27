@@ -19,7 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".movieDetail.MovieDetailFragment">
+            tools:context=".view.movieDetail.MovieDetailFragment">
 
             <ImageView
                 android:id="@+id/imageView"

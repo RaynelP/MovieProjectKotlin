@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.raynel.alkemyproject.movieList.ListMovieFragment"
+        android:name="com.raynel.alkemyproject.view.movieList.ListMovieFragment"
         tools:layout="@layout/fragment_list" >
 
         <action
@@ -19,12 +19,16 @@
 
     <fragment
         android:id="@+id/detailMovieFragment"
-        android:name="com.raynel.alkemyproject.movieDetail.MovieDetailFragment"
+        android:name="com.raynel.alkemyproject.view.movieDetail.MovieDetailFragment"
         tools:layout="@layout/fragment_detail_movie"/>
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.raynel.alkemyproject.home.HomeFragment"
         android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.raynel.alkemyproject.view.FavoritesFragment.FavoritesFragment"
+        android:label="FavoritesFragment" />
 
 </navigation>

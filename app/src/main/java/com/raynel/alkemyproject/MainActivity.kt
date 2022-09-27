@@ -2,6 +2,8 @@ package com.raynel.alkemyproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,14 +14,12 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
-
         configActionBarWithNavController()
-
         configBottomNavigation()
     }
 
@@ -27,7 +27,8 @@ class MainActivity : AppCompatActivity() {
         val appConfig = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
-                R.id.searchFragment
+                R.id.searchFragment,
+                R.id.favoritesFragment
             )
         )
         NavigationUI
@@ -48,8 +49,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getNavController(): NavController {
+
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+
         return navHostFragment.navController
     }
+
 }
