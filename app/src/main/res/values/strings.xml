@@ -9,5 +9,6 @@
     <string name="home_page">Home Page:</string>
     <string name="production_countries">Production Countries:</string>
     <string name="error_network">A network error occurred</string>
+    <string name="title_activity_login">login</string>
 
 </resources>

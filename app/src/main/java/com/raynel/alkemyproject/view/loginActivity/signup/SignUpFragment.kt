@@ -57,7 +57,8 @@ class SignUpFragment : Fragment() {
                 val activity = requireActivity() as LoginActivity
                 activity.onCreateUser(
                     binding.textInputdEmail.text.toString(),
-                    binding.textInputPassword.text.toString()
+                    binding.textInputPassword.text.toString(),
+                    binding.textInputdName.text.toString()
                 )
             })
         }

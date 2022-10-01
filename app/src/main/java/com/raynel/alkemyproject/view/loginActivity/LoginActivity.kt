@@ -12,8 +12,12 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
+import com.google.firebase.ktx.Firebase
 import com.raynel.alkemyproject.R
 import com.raynel.alkemyproject.databinding.ActivityLoginBinding
+import com.raynel.alkemyproject.model.UserModel
 import com.raynel.alkemyproject.showMessageWithSnackBar
 import com.raynel.alkemyproject.view.principalActivity.MainActivity
 
@@ -23,6 +27,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var dataBase: FirebaseFirestore
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +43,10 @@ class LoginActivity : AppCompatActivity() {
 
         //instance the auth
         auth = FirebaseAuth
+            .getInstance()
+
+        //instance the dataBase
+        dataBase = FirebaseFirestore
             .getInstance()
 
     }
@@ -67,7 +77,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     //create a user with email and password
-    fun onCreateUser(email: String, password: String) {
+    fun onCreateUser(email: String, password: String, name: String, image: String = "") {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 val TAG = "signUp"
@@ -75,10 +85,27 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     showMessageWithSnackBar(applicationContext, binding.root, "User created successful")
-                    val user = auth.currentUser
-                    updateUI(user)
+
+                    val userModel = UserModel(name, email, image)
+
+                    dataBase.collection("Users")
+                        .document(userModel.email)
+                        .set(userModel)
+                        .addOnSuccessListener { documentReference ->
+                            val user = auth.currentUser
+
+                            showMessageWithSnackBar(applicationContext, binding.root, "Bienvenid@ ${userModel.name}")
+                            //Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                            updateUI(user)
+                        }
+                        .addOnFailureListener { e ->
+                            showMessageWithSnackBar(applicationContext, binding.root, "An error ocurred, please try again")
+                            Log.w(TAG, "Error adding document", e)
+                            updateUI(null)
+                        }
+
                 } else {
-                    showMessageWithSnackBar(applicationContext, binding.root, "An error ocurred")
+                    showMessageWithSnackBar(applicationContext, binding.root, "An error ocurred, please try again")
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
                     //Toast.makeText(baseContext, "Authentication failed.",

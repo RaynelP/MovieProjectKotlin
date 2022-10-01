@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/LoginFragment"
         android:name="com.raynel.alkemyproject.view.loginActivity.login.LoginFragment"
-        android:label="@string/first_fragment_label"
+        android:label="Login"
         tools:layout="@layout/fragment_login">
 
         <action
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/SignFragment"
         android:name="com.raynel.alkemyproject.view.loginActivity.signup.SignUpFragment"
-        android:label="@string/second_fragment_label"
+        android:label="Sign Up}"
         tools:layout="@layout/fragment_sign_up">
 
         <action
