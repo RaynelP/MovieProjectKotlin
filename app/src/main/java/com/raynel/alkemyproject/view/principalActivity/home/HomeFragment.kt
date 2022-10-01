@@ -1,4 +1,4 @@
-package com.raynel.alkemyproject.home
+package com.raynel.alkemyproject.view.principalActivity.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

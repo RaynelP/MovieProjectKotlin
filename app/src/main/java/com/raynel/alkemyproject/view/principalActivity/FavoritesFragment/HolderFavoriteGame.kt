@@ -1,4 +1,4 @@
-package com.raynel.alkemyproject.view.FavoritesFragment
+package com.raynel.alkemyproject.view.principalActivity.FavoritesFragment
 
 import android.text.Layout
 import android.view.LayoutInflater

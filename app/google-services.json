@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "870518222533",
+    "project_id": "moviesproject-b3d69",
+    "storage_bucket": "moviesproject-b3d69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870518222533:android:9427b53e7b2596ecca0aac",
+        "android_client_info": {
+          "package_name": "com.raynel.alkemyproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870518222533-v136qhc3k4f285ie1pmgj0ijc8u8qic4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqW9eIlmeKPFxWvmqIGfyqlmMbZSftTYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "870518222533-v136qhc3k4f285ie1pmgj0ijc8u8qic4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

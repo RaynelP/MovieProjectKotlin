@@ -6,7 +6,7 @@
     <data>
         <variable
             name="homeViewModel"
-            type="com.raynel.alkemyproject.home.HomeViewModel" />
+            type="com.raynel.alkemyproject.view.principalActivity.home.HomeViewModel" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout

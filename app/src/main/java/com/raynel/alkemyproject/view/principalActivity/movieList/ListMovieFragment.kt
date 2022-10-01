@@ -1,4 +1,4 @@
-package com.raynel.alkemyproject.view.movieList
+package com.raynel.alkemyproject.view.principalActivity.movieList
 
 import android.os.Bundle
 import android.view.*

@@ -1,4 +1,4 @@
-package com.raynel.alkemyproject.home
+package com.raynel.alkemyproject.view.principalActivity.home
 
 import androidx.lifecycle.*
 import com.raynel.alkemyproject.util.GenericViewModel

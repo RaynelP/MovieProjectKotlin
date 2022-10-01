@@ -1,4 +1,4 @@
-package com.raynel.alkemyproject.view.movieDetail
+package com.raynel.alkemyproject.view.principalActivity.movieDetail
 
 import android.content.Intent
 import android.net.Uri
@@ -88,11 +88,15 @@ class MovieDetailFragment : Fragment() {
             error().observe(viewLifecycleOwner, Observer { error ->
                 error?.let {
                     if(error){
-                        val error = Snackbar.make(binding.root, getString(R.string.error_network), Snackbar.LENGTH_INDEFINITE)
-                        error.setAction("retry", View.OnClickListener {
+                        val messageError = Snackbar.make(
+                            binding.root,
+                            getString(R.string.error_network),
+                            Snackbar.LENGTH_INDEFINITE
+                        )
+                        messageError.setAction("retry", View.OnClickListener {
                             movieDetailViewModel.retry()
                         })
-                        error.show()
+                        messageError.show()
                     }
                 }
             })

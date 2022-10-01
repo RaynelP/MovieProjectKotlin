@@ -1,10 +1,10 @@
-package com.raynel.alkemyproject.view.FavoritesFragment
+package com.raynel.alkemyproject.view.principalActivity.FavoritesFragment
 
 import androidx.lifecycle.*
 import com.raynel.alkemyproject.Repository.roomDataBase.daos.FavoriteMovieDao
 import com.raynel.alkemyproject.model.FavoriteMovie
 import com.raynel.alkemyproject.util.GenericViewModel
-import com.raynel.alkemyproject.home.HomeViewModel
+import com.raynel.alkemyproject.view.principalActivity.home.HomeViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
