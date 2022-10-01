@@ -156,12 +156,6 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    fun signUp(){
-        FirebaseAuth
-            .getInstance()
-            .signOut()
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_login)
         return navController.navigateUp(appBarConfiguration)

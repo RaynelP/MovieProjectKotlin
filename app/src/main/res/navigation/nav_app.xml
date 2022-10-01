@@ -30,5 +30,9 @@
         android:id="@+id/favoritesFragment"
         android:name="com.raynel.alkemyproject.view.principalActivity.FavoritesFragment.FavoritesFragment"
         android:label="FavoritesFragment" />
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.raynel.alkemyproject.view.principalActivity.user.UserFragment"
+        android:label="UserFragment" />
 
 </navigation>

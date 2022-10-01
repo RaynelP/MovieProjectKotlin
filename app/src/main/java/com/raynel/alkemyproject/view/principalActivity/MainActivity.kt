@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.homeFragment,
                 R.id.searchFragment,
-                R.id.favoritesFragment
+                R.id.favoritesFragment,
+                R.id.userFragment
             )
         )
         NavigationUI
@@ -76,23 +77,18 @@ class MainActivity : AppCompatActivity() {
         return navHostFragment.navController
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_log_out, menu)
+    fun signUp(){
 
-        return true
+        FirebaseAuth
+            .getInstance()
+            .signOut()
+
+        startActivity(Intent(
+            this,
+            MainActivity::class.java
+        ))
+
+        finish()
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.logOut){
-            FirebaseAuth
-                .getInstance()
-                .signOut()
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-
 
 }
