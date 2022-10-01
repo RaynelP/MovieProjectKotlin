@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/LoginFragment">
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.raynel.alkemyproject.view.loginActivity.login.LoginFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_LoginFragment_to_SignFragment"
+            app:destination="@id/SignFragment"
+            app:enterAnim="@android:anim/fade_in" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SignFragment"
+        android:name="com.raynel.alkemyproject.view.loginActivity.signup.SignUpFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_sign_up">
+
+        <action
+            android:id="@+id/action_SignFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment"
+            app:enterAnim="@android:anim/fade_in" />
+    </fragment>
+
+</navigation>
