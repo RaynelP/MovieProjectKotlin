@@ -16,9 +16,6 @@
         <item name="android:editTextColor">#FFFFFF</item>
 
 
-
-
-
     </style>
 
     <style name="Theme.AlkemyProject.NoActionBar">
