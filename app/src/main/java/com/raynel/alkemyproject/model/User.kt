@@ -1,7 +1,7 @@
 package com.raynel.alkemyproject.model
 
 data class UserModel(
-    val name: String,
+    var name: String?,
     val email: String,
-    val image: String
+    var image: String?
     )

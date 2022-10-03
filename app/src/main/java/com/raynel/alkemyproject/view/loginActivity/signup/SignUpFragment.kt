@@ -53,13 +53,35 @@ class SignUpFragment : Fragment() {
                 }
             })
 
-            singUpSuccess().observe(viewLifecycleOwner, Observer {
-                val activity = requireActivity() as LoginActivity
-                activity.onCreateUser(
-                    binding.textInputdEmail.text.toString(),
-                    binding.textInputPassword.text.toString(),
-                    binding.textInputdName.text.toString()
-                )
+            singUpFormState().observe(viewLifecycleOwner, Observer { formState ->
+
+                formState?.let {
+
+                    formState.nameError?.let {
+                        binding.name.error = "The name cant be empty"
+                    }
+                    formState.emailError?.let {
+                        binding.email.error = "Email is invalid"
+                    }
+                    formState.passwordError?.let {
+                        binding.password.error = "Password is short"
+                    }
+                    formState.confirmationPasswordNotSame?.let {
+                        binding.confirmationPassword.error = "Password must be the same"
+                    }
+                    formState.isAllValid?.let {
+                        val activity = requireActivity() as LoginActivity
+                        activity.onCreateUser(
+                            binding.name.text.toString(),
+                            binding.email.text.toString(),
+                            binding.password.text.toString()
+                        )
+                    }
+
+                }
+
+
+
             })
         }
     }

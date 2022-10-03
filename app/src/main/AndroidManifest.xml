@@ -35,14 +35,17 @@
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.AlkemyProject">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name=".view.principalActivity.MainActivity"
             android:exported="false">
         </activity>
+
     </application>
 
 </manifest>
