@@ -11,6 +11,7 @@ import com.raynel.alkemyproject.Repository.roomDataBase.dataBase.AppDataBase
 import com.raynel.alkemyproject.databinding.FragmentHomeBinding
 import com.raynel.alkemyproject.model.FavoriteMovie
 import com.raynel.alkemyproject.model.Movie
+import com.raynel.alkemyproject.view.principalActivity.MainActivity
 import com.raynel.challenge.Repository.Network.Impl.MovieServiceImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -63,7 +64,8 @@ class HomeFragment : Fragment() {
                 }else{
                     View.GONE
                 }
-                binding.progressBar.visibility = visibility
+                (requireActivity() as MainActivity)
+                    .showOrDoneProgressBar(visibility)
             }
 
         })

@@ -72,9 +72,9 @@ class SignUpFragment : Fragment() {
                     formState.isAllValid?.let {
                         val activity = requireActivity() as LoginActivity
                         activity.onCreateUser(
-                            binding.name.text.toString(),
                             binding.email.text.toString(),
-                            binding.password.text.toString()
+                            binding.password.text.toString(),
+                            binding.name.text.toString()
                         )
                     }
 

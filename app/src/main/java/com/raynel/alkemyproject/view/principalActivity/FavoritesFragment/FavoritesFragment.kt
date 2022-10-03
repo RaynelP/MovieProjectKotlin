@@ -19,6 +19,7 @@ import com.raynel.alkemyproject.model.FavoriteMovie
 import com.raynel.alkemyproject.showMessageWithSnackBar
 import com.raynel.alkemyproject.util.GenericFragment
 import com.raynel.alkemyproject.util.genericAdapter.GenericAdapter
+import com.raynel.alkemyproject.view.principalActivity.MainActivity
 
 class FavoritesFragment : GenericFragment<FragmentFavoritesBinding>() {
 
@@ -63,6 +64,20 @@ class FavoritesFragment : GenericFragment<FragmentFavoritesBinding>() {
                 configSwipe(adapter)
             }
         })
+
+        viewModel.isLoading().observe(viewLifecycleOwner, Observer { isLoading ->
+
+            isLoading?.let {
+                val visibility = if(isLoading){
+                    View.VISIBLE
+                }else{
+                    View.GONE
+                }
+                (requireActivity() as MainActivity)
+                    .showOrDoneProgressBar(visibility)
+            }
+
+            })
     }
 
     private fun configViewModel() {

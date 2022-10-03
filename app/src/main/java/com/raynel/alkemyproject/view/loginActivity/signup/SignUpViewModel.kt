@@ -22,17 +22,17 @@ class SignUpViewModel: GenericViewModel() {
         _navigateToLogIn.value = null
     }
 
-    fun onSignUp(
-        name: String,
-        email: String,
-        password: String,
-        confirmationPassword: String
+    fun onSignUp(name: String, email: String, password: String, confirmationPassword: String
     ){
-        val formState = SignUpFormState()
+
+        val formState =  SignUpFormState()
+
         val isEmailValid = isValidEmail(email)
         val isPasswordValid = isValidPassword(password)
+        val isNameValid = name.isNotEmpty()
+        val passwordsAreSame = (password == confirmationPassword)
 
-        if(name.isEmpty()){
+        if(!isNameValid){
             formState.nameError = true
         }
 
@@ -44,12 +44,15 @@ class SignUpViewModel: GenericViewModel() {
             formState.passwordError = true
         }
 
-        if(password != confirmationPassword){
+        if(!passwordsAreSame){
             formState.confirmationPasswordNotSame = true
         }
 
-        _singUpFormState.value =
-            formState
+        if(isNameValid && isEmailValid && isPasswordValid && passwordsAreSame){
+            formState.isAllValid = true
+        }
+
+        _singUpFormState.value = formState
     }
 
     fun doneSignUp(){

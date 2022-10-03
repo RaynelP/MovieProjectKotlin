@@ -14,6 +14,7 @@ import com.raynel.alkemyproject.R
 import com.raynel.alkemyproject.databinding.FragmentListBinding
 import com.raynel.alkemyproject.view.MovieListAdapter
 import com.raynel.alkemyproject.view.OnClickListener
+import com.raynel.alkemyproject.view.principalActivity.MainActivity
 import com.raynel.challenge.Repository.Network.Impl.MovieServiceImpl
 import com.raynel.challenge.ViewModel.MovieListViewModel
 import com.raynel.challenge.ViewModel.MovieViewModelFactory
@@ -98,14 +99,16 @@ class ListMovieFragment : Fragment() {
 
         movieListViewModel.isLoading().observe(viewLifecycleOwner, Observer { isLoading ->
             isLoading?.let {
-                val visibility = if(isLoading){
+                val visibility = if(it){
                     View.VISIBLE
-                }else{
+                } else{
                     View.GONE
                 }
-                binding.progressBar.visibility = visibility
+                (requireActivity() as MainActivity)
+                    .showOrDoneProgressBar(visibility)
             }
         })
+
 
     }
 

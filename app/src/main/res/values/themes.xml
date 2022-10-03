@@ -42,4 +42,5 @@
         <item name="backgroundTint">@color/white</item>
 
     </style>
+
 </resources>

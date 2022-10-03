@@ -14,6 +14,7 @@ import com.raynel.alkemyproject.databinding.FragmentDetailMovieBinding
 import com.raynel.alkemyproject.formatDescriptionAndGenres
 import com.raynel.alkemyproject.formatInfoMovie
 import com.raynel.alkemyproject.showMessageWithSnackBar
+import com.raynel.alkemyproject.view.principalActivity.MainActivity
 import com.raynel.alkemyproject.viewModel.DetailMovieViewModel
 import com.raynel.alkemyproject.viewModel.DetailMovieViewModelFactory
 import com.raynel.challenge.Repository.Network.Impl.MovieServiceImpl
@@ -71,8 +72,13 @@ class MovieDetailFragment : Fragment() {
 
             isLoading().observe(viewLifecycleOwner, Observer { show ->
                 show?.let {
-                    if(show) binding.progressBar.visibility = View.VISIBLE
-                    else binding.progressBar.visibility = View.GONE
+                    val visibility = if(it){
+                        View.VISIBLE
+                    } else{
+                        View.GONE
+                    }
+                    (requireActivity() as MainActivity)
+                        .showOrDoneProgressBar(visibility)
                 }
             })
 

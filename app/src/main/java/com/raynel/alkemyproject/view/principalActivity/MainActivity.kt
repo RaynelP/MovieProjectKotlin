@@ -1,12 +1,10 @@
 package com.raynel.alkemyproject.view.principalActivity
 
 import android.content.Intent
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.view.*
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -79,9 +77,7 @@ class MainActivity : AppCompatActivity() {
 
     fun signUp(){
 
-        FirebaseAuth
-            .getInstance()
-            .signOut()
+        FirebaseAuth.getInstance().signOut()
 
         startActivity(Intent(
             this,
@@ -89,6 +85,10 @@ class MainActivity : AppCompatActivity() {
         ))
 
         finish()
+    }
+
+    fun showOrDoneProgressBar(visibility: Int){
+        binding.progressBar.visibility = visibility
     }
 
 }
