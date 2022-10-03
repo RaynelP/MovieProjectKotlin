@@ -46,8 +46,6 @@ class LoginFragment : Fragment() {
 
         configViewModel()
 
-        configFieldsObservable()
-
         configObservers()
 
         binding.viewModel = viewModel
@@ -65,30 +63,30 @@ class LoginFragment : Fragment() {
 
             })
 
-            logInSuccess().observe(viewLifecycleOwner, Observer {
-                val activity = requireActivity() as  LoginActivity
-                activity.onLogInUser(
-                    email.text.toString(),
-                    password.text.toString()
-                )
-            })
+            logInFormState().observe(viewLifecycleOwner, Observer { state ->
 
-            loginFormState().observe(viewLifecycleOwner, Observer{ formState ->
-                formState?.let {
+                state?.let {
 
-                    if(formState == LoginFormState.IS_ALL_VALID){
+                    it.emailError?.let {
+                        email.error = "Email is invalid"
+                    }
 
-                    }else{
-                        if(formState == LoginFormState.EMAIL_ERROR){
-                            email.error = "coño papaaaa"
-                        }
-                        if(formState == LoginFormState.PASSWORD_ERROR){
-                            password.error = "La contraseña es muy corta"
-                        }
+                    it.passWordError?.let {
+                        password.error = "Password is short"
+                    }
+
+                    it.isAllValid?.let {
+                        val activity = requireActivity() as  LoginActivity
+                        activity.onLogInUser(
+                            email.text.toString(),
+                            password.text.toString()
+                        )
                     }
 
                 }
+
             })
+
         }
     }
 
@@ -103,15 +101,15 @@ class LoginFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                viewModel.onTextFieldsChange(
-                    email.text.toString(),
-                    password.text.toString()
-                )
+                //viewModel.onTextFieldsChange(
+                //    email.text.toString(),
+                //    password.text.toString()
+                //)
             }
 
         }
-        email.addTextChangedListener(textWatcher)
-        password.addTextChangedListener(textWatcher)
+        //email.addTextChangedListener(textWatcher)
+        //password.addTextChangedListener(textWatcher)
     }
 
     private fun configViewModel() {

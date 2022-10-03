@@ -6,6 +6,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.core.text.set
@@ -60,3 +61,13 @@ fun showMessageWithSnackBar(context: Context, view: View, message: String){
     //    .make(view, menssage, Snackbar.LENGTH_SHORT)
     //    .show()
 }//
+
+fun isValidEmail(email: String): Boolean{
+    return Patterns.EMAIL_ADDRESS
+        .matcher(email)
+        .matches()
+}
+
+fun isValidPassword(password: String): Boolean{
+    return password.length > 7
+}
