@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import com.raynel.alkemyproject.R
 import com.raynel.alkemyproject.databinding.ActivityMainBinding
 import com.raynel.alkemyproject.view.loginActivity.LoginActivity
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var storage: FirebaseStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,10 @@ class MainActivity : AppCompatActivity() {
 
         //get an instance of auth
         auth = FirebaseAuth.getInstance()
+        //get an instance of storage
+        storage = FirebaseStorage.getInstance()
+        //reference
+        val storageReference = storage.reference
     }
 
     override fun onStart() {

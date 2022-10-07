@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.raynel.alkemyproject.view.principalActivity.user.UserViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,6 +22,7 @@
             android:layout_height="200dp"
             android:layout_marginTop="48dp"
             android:src="@drawable/avatar"
+            android:onClick="@{() -> viewModel.doNavigateToDialog()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +65,7 @@
             android:layout_marginBottom="32dp"
             android:foregroundTint="@color/white"
             android:text="Log Out"
+            android:onClick="@{() -> viewModel.onLogOut()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
