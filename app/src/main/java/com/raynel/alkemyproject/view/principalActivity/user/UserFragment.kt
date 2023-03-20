@@ -42,6 +42,7 @@ class UserFragment : Fragment() {
 
             //observable of navigation to Dialog
             navigateToDialog().observe(viewLifecycleOwner, Observer{ navigate ->
+
                 navigate?.let {
                     if(it){
                         showActualImageOrLoadImageDialog().show(
