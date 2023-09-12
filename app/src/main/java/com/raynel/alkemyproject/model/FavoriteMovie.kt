@@ -13,4 +13,4 @@ data class FavoriteMovie(
     val image: String,
 
     val overView: String
-    )
+)

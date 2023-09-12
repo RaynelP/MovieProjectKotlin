@@ -5,8 +5,6 @@ import com.raynel.alkemyproject.model.Movie
 import com.raynel.alkemyproject.model.MovieDetail
 
 interface IMoviesService {
-
     suspend fun getPopularMovies(page: Int = 1): PageListMovies?
-
-    suspend fun getMovieDetails(idMovie: Int): MovieDetail?
+    suspend fun getMovieDetails(idMovie: Long): MovieDetail?
 }

@@ -18,9 +18,9 @@
         android:icon="@drawable/icon_favorite"/>
 
 
-    <item
+    <!--<item
         android:id="@+id/userFragment"
         android:title="Profile"
-        android:icon="@drawable/icon_perfil"/>
+        android:icon="@drawable/icon_perfil"/>-->
 
 </menu>

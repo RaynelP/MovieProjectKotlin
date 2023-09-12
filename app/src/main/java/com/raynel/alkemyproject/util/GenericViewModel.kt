@@ -39,4 +39,10 @@ open class GenericViewModel : ViewModel(){
         _isLoading.value = false
     }
 
+    suspend fun doOnLoading(lambda: suspend () -> Unit){
+        onLoanding()
+        lambda()
+        doneLoanding()
+    }
+
 }

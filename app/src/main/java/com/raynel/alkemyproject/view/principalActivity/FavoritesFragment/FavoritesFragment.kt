@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Adapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -19,14 +20,14 @@ import com.raynel.alkemyproject.model.FavoriteMovie
 import com.raynel.alkemyproject.showMessageWithSnackBar
 import com.raynel.alkemyproject.util.GenericFragment
 import com.raynel.alkemyproject.util.genericAdapter.GenericAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class FavoritesFragment : GenericFragment<FragmentFavoritesBinding>() {
 
-
     private lateinit var binding: FragmentFavoritesBinding
-
     private lateinit var viewModel: FavoriteVIewModel
-
     private lateinit var adapter: GenericAdapter<FavoriteMovie, ItemFavoriteMovieBinding>
 
     override fun onCreateView(
@@ -37,15 +38,13 @@ class FavoritesFragment : GenericFragment<FragmentFavoritesBinding>() {
         binding = FragmentFavoritesBinding
             .inflate(inflater, container,false)
 
-        configViewModel()
-        configObservers()
-
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.getAllFavoriteMovies()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        configViewModel()
+        configObservers()
     }
 
     private fun configObservers() {
@@ -55,26 +54,28 @@ class FavoritesFragment : GenericFragment<FragmentFavoritesBinding>() {
             .addViewData(HolderFavoriteGame())
             .build()
 
-        viewModel.favoriteMovies().observe(viewLifecycleOwner, Observer { list ->
+        // invoke a flow that is connect to database
+        lifecycleScope.launch(Dispatchers.IO){
+            viewModel.getAllFavoriteMovies()
+                .collect{list ->
 
-            list?.let {
-                adapter.addList(list)
-                binding.rvFavoriteGameList.adapter = adapter
-                configSwipe(adapter)
-            }
-        })
+                    list?.let {
+                        adapter.addList(list)
+                        binding.rvFavoriteGameList.adapter = adapter
+                        configSwipe(adapter)
+                    }
+
+                }
+        }
+
     }
 
     private fun configViewModel() {
-        //instancio la base de datos
         val db = AppDataBase.getInstance(context!!)
 
-        //instancio el dao
         val source = db!!.favoriteMoviesDAO()
-
         val factory = FavoriteViewModelFactory(source)
-
-        viewModel = ViewModelProvider(this, factory).get(FavoriteVIewModel::class.java)
+        viewModel = ViewModelProvider(this, factory)[FavoriteVIewModel::class.java]
     }
 
     fun configSwipe(adapter: GenericAdapter<FavoriteMovie, ItemFavoriteMovieBinding>){

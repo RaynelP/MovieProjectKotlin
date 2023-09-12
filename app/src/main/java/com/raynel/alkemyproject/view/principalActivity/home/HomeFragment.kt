@@ -7,14 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.raynel.alkemyproject.Repository.roomDataBase.dataBase.AppDataBase
 import com.raynel.alkemyproject.databinding.FragmentHomeBinding
-import com.raynel.alkemyproject.model.FavoriteMovie
 import com.raynel.alkemyproject.model.Movie
 import com.raynel.challenge.Repository.Network.Impl.MovieServiceImpl
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 

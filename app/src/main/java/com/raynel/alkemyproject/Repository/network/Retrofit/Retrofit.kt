@@ -30,7 +30,7 @@ interface RetrofitApiEndpoints {
                                  @Query("api_key") api: String = API_KEY): PageListMovies
 
     @GET("movie/{id}")
-    suspend fun getMovieDetails(@Path("id") idMovie: Int,
+    suspend fun getMovieDetails(@Path("id") idMovie: Long,
                                 @Query("api_key") api: String = API_KEY): MovieDetail
 
     @POST("/movie/{id}/rating")

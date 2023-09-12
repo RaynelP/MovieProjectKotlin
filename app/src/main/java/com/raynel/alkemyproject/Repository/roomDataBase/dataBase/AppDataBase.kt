@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.raynel.alkemyproject.Repository.roomDataBase.daos.FavoriteMovieDao
 import com.raynel.alkemyproject.model.FavoriteMovie
 
-@Database(entities = [FavoriteMovie::class], version = 4)
+@Database(entities = [FavoriteMovie::class], version = 5)
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun favoriteMoviesDAO(): FavoriteMovieDao

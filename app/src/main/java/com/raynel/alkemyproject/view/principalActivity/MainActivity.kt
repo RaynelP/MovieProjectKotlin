@@ -3,10 +3,6 @@ package com.raynel.alkemyproject.view.principalActivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,7 +11,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.raynel.alkemyproject.R
 import com.raynel.alkemyproject.databinding.ActivityMainBinding
 import com.raynel.alkemyproject.view.loginActivity.LoginActivity
-import java.util.zip.Inflater
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        configActionBarWithNavController()
+        //configActionBarWithNavController()
         configBottomNavigation()
 
         //get an instance of auth
@@ -37,10 +32,10 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         //
-        if(auth.currentUser == null){
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-        }
+        //if(auth.currentUser == null){
+        //    startActivity(Intent(this, LoginActivity::class.java))
+        //    finish()
+        //}
     }
 
     private fun configBottomNavigation() {
@@ -48,8 +43,8 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.homeFragment,
                 R.id.searchFragment,
-                R.id.favoritesFragment,
-                R.id.userFragment
+                R.id.favoritesFragment
+                //R.id.userFragment
             )
         )
         NavigationUI

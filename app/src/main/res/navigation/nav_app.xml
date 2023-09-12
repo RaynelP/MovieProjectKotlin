@@ -9,18 +9,10 @@
         android:id="@+id/searchFragment"
         android:name="com.raynel.alkemyproject.view.principalActivity.movieList.ListMovieFragment"
         tools:layout="@layout/fragment_list" >
-
         <action
-            android:id="@+id/action_fragmentList_to_detailMovieFragment"
-            app:destination="@id/detailMovieFragment"
-            app:enterAnim="@android:anim/slide_in_left" />
-
+            android:id="@+id/action_searchFragment_to_detailMovieActivity"
+            app:destination="@id/detailMovieActivity" />
     </fragment>
-
-    <fragment
-        android:id="@+id/detailMovieFragment"
-        android:name="com.raynel.alkemyproject.view.principalActivity.movieDetail.MovieDetailFragment"
-        tools:layout="@layout/fragment_detail_movie"/>
 
     <fragment
         android:id="@+id/homeFragment"
@@ -29,10 +21,18 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.raynel.alkemyproject.view.principalActivity.FavoritesFragment.FavoritesFragment"
-        android:label="FavoritesFragment" />
+        android:label="FavoritesFragment" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_detailMovieActivity"
+            app:destination="@id/detailMovieActivity" />
+    </fragment>
     <fragment
         android:id="@+id/userFragment"
         android:name="com.raynel.alkemyproject.view.principalActivity.user.UserFragment"
         android:label="UserFragment" />
+    <activity
+        android:id="@+id/detailMovieActivity"
+        android:name="com.raynel.alkemyproject.view.movieDetailActivity.MovieDetailActivity"
+        android:label="DetailMovieActivity" />
 
 </navigation>

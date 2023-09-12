@@ -4,35 +4,28 @@ import androidx.lifecycle.*
 import com.raynel.alkemyproject.Repository.roomDataBase.daos.FavoriteMovieDao
 import com.raynel.alkemyproject.model.FavoriteMovie
 import com.raynel.alkemyproject.util.GenericViewModel
-import com.raynel.alkemyproject.view.principalActivity.home.HomeViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.Exception
 
-class FavoriteVIewModel(val favoriteMovieSource: FavoriteMovieDao): GenericViewModel() {
+class FavoriteVIewModel(private val favoriteMovieSource: FavoriteMovieDao): GenericViewModel() {
 
-    private val _favoritesMovies: MutableLiveData<List<FavoriteMovie>> by lazy { MutableLiveData() }
-    fun favoriteMovies(): LiveData<List<FavoriteMovie>> = _favoritesMovies
-
-
-    init {
-        onLoanding()
-    }
-
-    fun getAllFavoriteMovies(){
-        viewModelScope.launch {
-
-            try {
-                val result = favoriteMovieSource.getAll()
-                _favoritesMovies.value = result
-                if(result == null){
-                    onError()
-                }
-            }catch (e: Exception){
-                onError()
+    fun getAllFavoriteMovies() =
+        favoriteMovieSource
+            .findAllFavoriteMovie()
+            .onStart{
+                onLoanding()
             }
-            doneLoanding()
-        }
-    }
+            .onCompletion {
+                doneLoanding()
+            }
+            .catch {
+                withContext(Dispatchers.Main){ onError() }
+            }
 
     fun saveMovie(movie: FavoriteMovie){
         viewModelScope.launch {

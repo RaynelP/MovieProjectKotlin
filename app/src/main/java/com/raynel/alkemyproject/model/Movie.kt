@@ -2,6 +2,6 @@ package com.raynel.alkemyproject.model
 
 data class Movie (
     val backdrop_path: String,
-    val id: Int,
+    val id: Long,
     val original_title: String,
 )

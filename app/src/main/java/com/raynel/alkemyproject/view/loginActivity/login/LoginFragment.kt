@@ -12,7 +12,6 @@ import com.raynel.alkemyproject.R
 import com.raynel.alkemyproject.databinding.FragmentLoginBinding
 import com.raynel.alkemyproject.view.loginActivity.LoginActivity
 
-
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null

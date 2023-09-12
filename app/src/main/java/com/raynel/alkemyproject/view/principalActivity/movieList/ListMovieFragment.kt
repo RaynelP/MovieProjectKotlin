@@ -90,8 +90,8 @@ class ListMovieFragment : Fragment() {
             //navigate to detail movie
             movie?.let {
                 val bundle = Bundle()
-                bundle.putInt("id", movie.id)
-                this.findNavController().navigate(R.id.action_fragmentList_to_detailMovieFragment, bundle)
+                bundle.putLong("id", movie.id)
+                this.findNavController().navigate(R.id.action_searchFragment_to_detailMovieActivity, bundle)
                 movieListViewModel.doneNavigateToMovieDatail()
             }
         })
