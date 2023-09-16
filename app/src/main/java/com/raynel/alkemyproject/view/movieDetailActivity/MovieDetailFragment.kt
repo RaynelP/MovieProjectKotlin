@@ -3,58 +3,54 @@ package com.raynel.alkemyproject.view.movieDetailActivity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.snackbar.Snackbar
 import com.raynel.alkemyproject.R
-import com.raynel.alkemyproject.Repository.roomDataBase.dataBase.AppDataBase
 import com.raynel.alkemyproject.databinding.FragmentDetailMovieBinding
 import com.raynel.alkemyproject.formatDescriptionAndGenres
 import com.raynel.alkemyproject.formatInfoMovie
-import com.raynel.alkemyproject.viewModel.DetailMovieViewModel
-import com.raynel.alkemyproject.viewModel.DetailMovieViewModelFactory
-import com.raynel.challenge.Repository.Network.Impl.MovieServiceImpl
+import com.raynel.alkemyproject.viewModel.MovieDetailViewModel
+import com.raynel.challenge.ViewModel.MovieListViewModel
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MovieDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailMovieBinding
-    private lateinit var movieDetailViewModel: DetailMovieViewModel
+    private lateinit var movieDetailViewModel: MovieDetailViewModel
     private var movieId: Long? = null
     private var isFavorite = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        movieDetailViewModel = ViewModelProvider(this)[MovieDetailViewModel::class.java]
+        val activity = requireActivity() as MovieDetailActivity
+        movieId = activity.movieId
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentDetailMovieBinding
             .inflate(inflater, container, false)
-
+        binding.detailViewModel = movieDetailViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        configViewModel()
         configObservers()
-    }
-
-    private fun configViewModel() {
-        val activity = requireActivity() as MovieDetailActivity
-        movieId = activity.movieId
-        val movieService = MovieServiceImpl.getInstance()
-        val favoritesMovieService = AppDataBase.getInstance(context!!)?.favoriteMoviesDAO()
-        val factory = DetailMovieViewModelFactory(movieService, favoritesMovieService!!)
-
-        movieDetailViewModel = ViewModelProvider(this, factory)[DetailMovieViewModel::class.java]
-
-        binding.detailViewModel = movieDetailViewModel
     }
 
     private fun configObservers() {
@@ -63,6 +59,7 @@ class MovieDetailFragment : Fragment() {
             // find the detail movie info
             getMovieDetail(movieId!!)
 
+            // movie observer
             detailMovie.observe(viewLifecycleOwner) { movie ->
 
                 movie?.let {
@@ -80,12 +77,14 @@ class MovieDetailFragment : Fragment() {
                 }
             }
 
+            // onLoading Observer
             isLoading().observe(viewLifecycleOwner, Observer { show ->
                 show?.let {
                     binding.progressBar.visibility = if(show) View.VISIBLE else View.GONE
                 }
             })
 
+            // onNavigateToWebObserver
             navigateToMovieWeb.observe(viewLifecycleOwner, Observer { movie ->
                 movie?.let {
                     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.homepage))
@@ -95,6 +94,7 @@ class MovieDetailFragment : Fragment() {
                 }
             })
 
+            // on error observer
             error().observe(viewLifecycleOwner, Observer { error ->
                 error?.let {
                     if(error){
@@ -111,6 +111,7 @@ class MovieDetailFragment : Fragment() {
                 }
             })
 
+            // isFavorite state observer
             viewModelScope.launch {
                 isFavorite(movieId = movieId!!).collect{ favorite ->
                     favorite?.let {
@@ -120,18 +121,20 @@ class MovieDetailFragment : Fragment() {
                 }
             }
 
-            onFavoriteEvent.observe(viewLifecycleOwner, Observer { favoriteEvent ->
+            // favorite event observer
+            onFavoriteEvent.observe(viewLifecycleOwner){ favoriteEvent ->
 
                 favoriteEvent?.let {
+                    val i = 0
                     if(isFavorite){
                         movieDetailViewModel.deleteMovie()
                     } else {
                         movieDetailViewModel.saveMovie()
                     }
-
+                    doneOnFavoriteEvent()
                 }
 
-            })
+            }
 
         }
     }

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.raynel.alkemyproject.Repository.roomDataBase.daos.FavoriteMovieDao
 import com.raynel.alkemyproject.model.FavoriteMovie
 
-@Database(entities = [FavoriteMovie::class], version = 5)
+@Database(entities = [FavoriteMovie::class], version = 6)
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun favoriteMoviesDAO(): FavoriteMovieDao
@@ -20,7 +20,7 @@ abstract class AppDataBase : RoomDatabase() {
                 db = Room.databaseBuilder(
                     context,
                     AppDataBase::class.java,
-                    "database-name"
+                    "movies-database"
                 )
                     .fallbackToDestructiveMigration()
                     .build()

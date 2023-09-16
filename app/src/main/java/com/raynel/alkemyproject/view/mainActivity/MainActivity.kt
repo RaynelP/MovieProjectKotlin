@@ -1,4 +1,4 @@
-package com.raynel.alkemyproject.view.principalActivity
+package com.raynel.alkemyproject.view.mainActivity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,8 +10,9 @@ import androidx.navigation.ui.NavigationUI
 import com.google.firebase.auth.FirebaseAuth
 import com.raynel.alkemyproject.R
 import com.raynel.alkemyproject.databinding.ActivityMainBinding
-import com.raynel.alkemyproject.view.loginActivity.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

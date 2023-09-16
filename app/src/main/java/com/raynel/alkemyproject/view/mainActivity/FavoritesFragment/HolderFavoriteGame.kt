@@ -1,6 +1,5 @@
-package com.raynel.alkemyproject.view.principalActivity.FavoritesFragment
+package com.raynel.alkemyproject.view.mainActivity.FavoritesFragment
 
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.raynel.alkemyproject.databinding.ItemFavoriteMovieBinding

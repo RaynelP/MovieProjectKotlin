@@ -3,25 +3,19 @@ package com.raynel.challenge.Repository.Network.Impl
 import com.raynel.alkemyproject.model.PageListMovies
 import com.raynel.alkemyproject.model.MovieDetail
 import com.raynel.challenge.Repository.Network.Interface.IMoviesService
-import com.raynel.challenge.Repository.movieServices
+import com.raynel.challenge.Repository.RetrofitApiEndpoints
+import javax.inject.Inject
 
-class MovieServiceImpl private constructor(): IMoviesService {
+class MovieServiceImpl @Inject constructor(
+    private val movieApiRetrofit: RetrofitApiEndpoints
+) : IMoviesService {
 
-    companion object{
-
-        private val movieService: MovieServiceImpl? = null
-
-        fun getInstance(): MovieServiceImpl{
-            return movieService ?: MovieServiceImpl()
-        }
-
-    }
     override suspend fun getPopularMovies(page: Int): PageListMovies? {
-        return movieServices.getPopularMovies(page)
+        return movieApiRetrofit.getPopularMovies(page)
     }
 
     override suspend fun getMovieDetails(idMovie: Long): MovieDetail? {
-        return movieServices.getMovieDetails(idMovie)
+        return movieApiRetrofit.getMovieDetails(idMovie)
     }
 
 }

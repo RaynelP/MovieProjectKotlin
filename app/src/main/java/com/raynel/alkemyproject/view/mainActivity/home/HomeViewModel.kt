@@ -1,13 +1,18 @@
-package com.raynel.alkemyproject.view.principalActivity.home
+package com.raynel.alkemyproject.view.mainActivity.home
 
 import androidx.lifecycle.*
 import com.raynel.alkemyproject.util.GenericViewModel
 import com.raynel.alkemyproject.model.Movie
 import com.raynel.challenge.Repository.Network.Interface.IMoviesService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.IOException
+import javax.inject.Inject
 
-class HomeViewModel(private val movieService: IMoviesService): GenericViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val movieService: IMoviesService
+) : GenericViewModel() {
 
     private val _randomMovie: MutableLiveData<List<Movie>> = MutableLiveData()
     fun randomMovie(): LiveData<List<Movie>> = _randomMovie
@@ -31,16 +36,4 @@ class HomeViewModel(private val movieService: IMoviesService): GenericViewModel(
             doneLoanding()
         }
     }
-}
-
-class HomeViewModelFactory(private val movieService: IMoviesService)
-    : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(movieService) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-
 }

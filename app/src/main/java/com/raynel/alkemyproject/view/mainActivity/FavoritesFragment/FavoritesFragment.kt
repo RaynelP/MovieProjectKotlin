@@ -1,34 +1,33 @@
-package com.raynel.alkemyproject.view.principalActivity.FavoritesFragment
+package com.raynel.alkemyproject.view.mainActivity.FavoritesFragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
-import com.raynel.alkemyproject.R
-import com.raynel.alkemyproject.Repository.roomDataBase.dataBase.AppDataBase
 import com.raynel.alkemyproject.databinding.FragmentFavoritesBinding
 import com.raynel.alkemyproject.databinding.ItemFavoriteMovieBinding
 import com.raynel.alkemyproject.model.FavoriteMovie
 import com.raynel.alkemyproject.showMessageWithSnackBar
-import com.raynel.alkemyproject.util.GenericFragment
 import com.raynel.alkemyproject.util.genericAdapter.GenericAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-class FavoritesFragment : GenericFragment<FragmentFavoritesBinding>() {
+@AndroidEntryPoint
+class FavoritesFragment : Fragment() {
 
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var viewModel: FavoriteVIewModel
     private lateinit var adapter: GenericAdapter<FavoriteMovie, ItemFavoriteMovieBinding>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[FavoriteVIewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +42,6 @@ class FavoritesFragment : GenericFragment<FragmentFavoritesBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        configViewModel()
         configObservers()
     }
 
@@ -55,7 +53,7 @@ class FavoritesFragment : GenericFragment<FragmentFavoritesBinding>() {
             .build()
 
         // invoke a flow that is connect to database
-        lifecycleScope.launch(Dispatchers.IO){
+        lifecycleScope.launch(){
             viewModel.getAllFavoriteMovies()
                 .collect{list ->
 
@@ -70,15 +68,7 @@ class FavoritesFragment : GenericFragment<FragmentFavoritesBinding>() {
 
     }
 
-    private fun configViewModel() {
-        val db = AppDataBase.getInstance(context!!)
-
-        val source = db!!.favoriteMoviesDAO()
-        val factory = FavoriteViewModelFactory(source)
-        viewModel = ViewModelProvider(this, factory)[FavoriteVIewModel::class.java]
-    }
-
-    fun configSwipe(adapter: GenericAdapter<FavoriteMovie, ItemFavoriteMovieBinding>){
+    private fun configSwipe(adapter: GenericAdapter<FavoriteMovie, ItemFavoriteMovieBinding>){
 
         val callBack = object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
 

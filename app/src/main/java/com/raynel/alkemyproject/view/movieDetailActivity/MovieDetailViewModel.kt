@@ -7,19 +7,29 @@ import com.raynel.alkemyproject.model.FavoriteMovie
 import com.raynel.alkemyproject.model.MovieDetail
 import com.raynel.alkemyproject.util.GenericViewModel
 import com.raynel.challenge.Repository.Network.Interface.IMoviesService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import javax.inject.Inject
 
-class DetailMovieViewModel(private val movieService: IMoviesService,
-                           private val favoritesMovieService: FavoriteMovieDao): GenericViewModel() {
+@HiltViewModel
+class MovieDetailViewModel @Inject constructor(
+    private val movieService: IMoviesService,
+    private val favoritesMovieService: FavoriteMovieDao
+): GenericViewModel() {
 
     private val TAG = "roomDataBase"
-    private lateinit var movie: MovieDetail
+
+    // livedata detailMovie event
+    private val _detailMovie: MutableLiveData<MovieDetail?> = MutableLiveData()
+    val detailMovie: LiveData<MovieDetail?> = _detailMovie
 
     // livedata navigate to web event
     private val _navigateToMovieWeb: MutableLiveData<MovieDetail?> = MutableLiveData()
@@ -29,17 +39,13 @@ class DetailMovieViewModel(private val movieService: IMoviesService,
     private val _onFavoriteEvent: MutableLiveData<Boolean?> = MutableLiveData()
     val onFavoriteEvent: LiveData<Boolean?> = _onFavoriteEvent
 
-    // livedata detailMovie event
-    private val _detailMovie: MutableLiveData<MovieDetail?> = MutableLiveData()
-    val detailMovie: LiveData<MovieDetail?> = _detailMovie
-
     fun getMovieDetail(movieId: Long) {
         onLoanding()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val movie = movieService.getMovieDetails(movieId)
+                val movie = movieService.getMovieDetails(movieId) ?: throw Exception()
                 _detailMovie.postValue(movie)
-            }catch (e: Exception){
+            } catch (e: Exception){
                 withContext(Dispatchers.Main){ onError() }
             }
         }
@@ -57,7 +63,6 @@ class DetailMovieViewModel(private val movieService: IMoviesService,
 
     fun saveMovie(){
         viewModelScope.launch {
-
             try {
                 favoritesMovieService
                     .save(convertMovieToFavoriteMovie())
@@ -71,7 +76,6 @@ class DetailMovieViewModel(private val movieService: IMoviesService,
 
     fun deleteMovie(){
         viewModelScope.launch {
-
             try {
                 favoritesMovieService
                     .delete(convertMovieToFavoriteMovie())
@@ -84,6 +88,7 @@ class DetailMovieViewModel(private val movieService: IMoviesService,
     }
 
     private fun convertMovieToFavoriteMovie(): FavoriteMovie {
+        val movie = detailMovie.value!!
         return FavoriteMovie(
             movie.id,
             movie.title,
@@ -93,7 +98,7 @@ class DetailMovieViewModel(private val movieService: IMoviesService,
     }
 
     fun doOnNavigateToMovieWebBrowserEvent() {
-        _navigateToMovieWeb.value = movie
+        _navigateToMovieWeb.value = detailMovie.value
     }
 
     fun doneNavigationWebBrowserEvent() {
@@ -106,19 +111,6 @@ class DetailMovieViewModel(private val movieService: IMoviesService,
 
     fun doneOnFavoriteEvent(){
         _onFavoriteEvent.value = null
-    }
-
-}
-
-@Suppress("UNCHECKED_CAST")
-class DetailMovieViewModelFactory(private val movieService: IMoviesService,
-                                  private val favoritesMovieService: FavoriteMovieDao) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailMovieViewModel::class.java)) {
-            return DetailMovieViewModel(movieService, favoritesMovieService) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 
 }

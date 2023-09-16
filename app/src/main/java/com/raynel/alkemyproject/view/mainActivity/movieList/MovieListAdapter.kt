@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.raynel.alkemyproject.databinding.ListItemMovieBinding
+import com.raynel.alkemyproject.databinding.ItemListMovieBinding
 import com.raynel.alkemyproject.model.Movie
 import com.squareup.picasso.Picasso
 
@@ -15,7 +15,7 @@ class MovieListAdapter(private val onClickListener: OnClickListener)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        val binding = ListItemMovieBinding
+        val binding = ItemListMovieBinding
             .inflate(inflater, parent, false)
 
         binding.onclickListener = onClickListener
@@ -30,7 +30,7 @@ class MovieListAdapter(private val onClickListener: OnClickListener)
 
 }
 
-class MovieViewHolder (private val binding: ListItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+class MovieViewHolder (private val binding: ItemListMovieBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(m: Movie?){
         binding.apply {
             movie = m
@@ -56,4 +56,3 @@ class OnClickListener(val onClickLambda: (movie: Movie) -> Unit){
         onClickLambda(movie)
     }
 }
-

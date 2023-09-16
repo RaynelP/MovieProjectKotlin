@@ -13,13 +13,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.auth.User
-import com.google.firebase.ktx.Firebase
 import com.raynel.alkemyproject.R
 import com.raynel.alkemyproject.databinding.ActivityLoginBinding
-import com.raynel.alkemyproject.model.UserModel
+import com.raynel.alkemyproject.model.User
 import com.raynel.alkemyproject.showMessageWithSnackBar
-import com.raynel.alkemyproject.view.principalActivity.MainActivity
+import com.raynel.alkemyproject.view.mainActivity.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -86,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d(TAG, "createUserWithEmail:success")
                     showMessageWithSnackBar(applicationContext, binding.root, "User created successful")
 
-                    val userModel = UserModel(name, email, image)
+                    val userModel = User(name, email, image)
 
                     dataBase.collection("Users")
                         .document(userModel.email)

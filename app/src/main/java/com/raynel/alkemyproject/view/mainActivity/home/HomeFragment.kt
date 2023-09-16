@@ -1,20 +1,27 @@
-package com.raynel.alkemyproject.view.principalActivity.home
+package com.raynel.alkemyproject.view.mainActivity.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.raynel.alkemyproject.databinding.FragmentHomeBinding
 import com.raynel.alkemyproject.model.Movie
-import com.raynel.challenge.Repository.Network.Impl.MovieServiceImpl
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,24 +31,13 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding
             .inflate(inflater, container, false)
 
-        configViewModel()
         configObservers()
 
         return binding.root
     }
 
-    private fun configViewModel() {
-        //instance a service
-        val movieService = MovieServiceImpl.getInstance()
-        //instance a service
-        val factory = HomeViewModelFactory(movieService)
-
-        //create viewModel
-        homeViewModel = ViewModelProvider(this, factory)
-            .get(HomeViewModel::class.java)
-    }
-
     private fun configObservers() {
+
         homeViewModel.randomMovie().observe(viewLifecycleOwner, Observer { list ->
 
             list?.let {

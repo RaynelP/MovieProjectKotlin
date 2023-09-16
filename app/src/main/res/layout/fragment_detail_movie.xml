@@ -9,7 +9,7 @@
 
         <variable
             name="detailViewModel"
-            type="com.raynel.alkemyproject.viewModel.DetailMovieViewModel" />
+            type="com.raynel.alkemyproject.viewModel.MovieDetailViewModel" />
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.principalActivity.movieDetail.MovieDetailFragment">
+            tools:context=".view.mainActivity.movieDetail.MovieDetailFragment">
 
             <ImageView
                 android:id="@+id/imageView"

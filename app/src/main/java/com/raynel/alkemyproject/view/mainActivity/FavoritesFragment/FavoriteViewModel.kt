@@ -1,9 +1,11 @@
-package com.raynel.alkemyproject.view.principalActivity.FavoritesFragment
+package com.raynel.alkemyproject.view.mainActivity.FavoritesFragment
 
 import androidx.lifecycle.*
 import com.raynel.alkemyproject.Repository.roomDataBase.daos.FavoriteMovieDao
+import com.raynel.alkemyproject.Repository.roomDataBase.dataBase.AppDataBase
 import com.raynel.alkemyproject.model.FavoriteMovie
 import com.raynel.alkemyproject.util.GenericViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion
@@ -11,8 +13,12 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import javax.inject.Inject
 
-class FavoriteVIewModel(private val favoriteMovieSource: FavoriteMovieDao): GenericViewModel() {
+@HiltViewModel
+class FavoriteVIewModel @Inject constructor(
+    private val favoriteMovieSource: FavoriteMovieDao
+): GenericViewModel() {
 
     fun getAllFavoriteMovies() =
         favoriteMovieSource
@@ -48,18 +54,6 @@ class FavoriteVIewModel(private val favoriteMovieSource: FavoriteMovieDao): Gene
             }
 
         }
-    }
-
-}
-
-class FavoriteViewModelFactory(val favoriteMovieSource: FavoriteMovieDao)
-    : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(FavoriteVIewModel::class.java)) {
-            return FavoriteVIewModel(favoriteMovieSource) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 
 }

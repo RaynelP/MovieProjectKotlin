@@ -1,4 +1,4 @@
-package com.raynel.alkemyproject.view.principalActivity.user
+package com.raynel.alkemyproject.view.mainActivity.user
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.raynel.alkemyproject.databinding.FragmentUserBinding
-import com.raynel.alkemyproject.view.principalActivity.MainActivity
+import com.raynel.alkemyproject.view.mainActivity.MainActivity
 
 class UserFragment : Fragment() {
 

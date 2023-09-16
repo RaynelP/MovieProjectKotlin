@@ -1,4 +1,4 @@
-package com.raynel.alkemyproject.view.principalActivity.home
+package com.raynel.alkemyproject.view.mainActivity.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

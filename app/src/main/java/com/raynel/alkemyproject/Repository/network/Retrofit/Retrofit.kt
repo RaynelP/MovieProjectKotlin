@@ -12,17 +12,6 @@ import retrofit2.http.*
 const val base_url = "https://api.themoviedb.org/3/"
 const val API_KEY = "0ad1649345d3ae87550f4571776c8aa5"
 
-fun getRetrofit(): Retrofit{
-    return Retrofit.Builder()
-        .baseUrl(base_url)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-}
-
-val movieServices: RetrofitApiEndpoints by lazy {
-    getRetrofit().create(RetrofitApiEndpoints::class.java)
-}
-
 interface RetrofitApiEndpoints {
 
     @GET("movie/popular")

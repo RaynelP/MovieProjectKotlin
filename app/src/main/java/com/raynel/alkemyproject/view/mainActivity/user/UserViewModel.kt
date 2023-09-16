@@ -1,4 +1,4 @@
-package com.raynel.alkemyproject.view.principalActivity.user
+package com.raynel.alkemyproject.view.mainActivity.user
 
 import com.raynel.alkemyproject.util.GenericViewModel
 

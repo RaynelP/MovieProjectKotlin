@@ -1,8 +1,9 @@
-package com.raynel.alkemyproject.view.principalActivity.movieList
+package com.raynel.alkemyproject.view.mainActivity.movieList
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -14,17 +15,23 @@ import com.raynel.alkemyproject.R
 import com.raynel.alkemyproject.databinding.FragmentListBinding
 import com.raynel.alkemyproject.view.MovieListAdapter
 import com.raynel.alkemyproject.view.OnClickListener
-import com.raynel.challenge.Repository.Network.Impl.MovieServiceImpl
+import com.raynel.alkemyproject.view.mainActivity.FavoritesFragment.FavoriteVIewModel
 import com.raynel.challenge.ViewModel.MovieListViewModel
-import com.raynel.challenge.ViewModel.MovieViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ListMovieFragment : Fragment() {
 
-    lateinit var binding : FragmentListBinding
-    lateinit var movieListViewModel: MovieListViewModel
-    lateinit var adapterRv: MovieListAdapter
+    private lateinit var binding : FragmentListBinding
+    private lateinit var movieListViewModel: MovieListViewModel
+    private lateinit var adapterRv: MovieListAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        movieListViewModel = ViewModelProvider(this)[MovieListViewModel::class.java]
+    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -35,21 +42,11 @@ class ListMovieFragment : Fragment() {
             .inflate(inflater, container, false)
 
         setHasOptionsMenu(false)
-        configViewModel()
         configList()
         configObservers()
         setHasOptionsMenu(true)
 
         return binding.root
-    }
-
-    private fun configViewModel() {
-        //instance a service and put in the viewModel
-        val movieService = MovieServiceImpl.getInstance()
-        val factory = MovieViewModelFactory(movieService)
-
-        //create viewModel
-        movieListViewModel = ViewModelProvider(this, factory).get(MovieListViewModel::class.java)
     }
 
     private fun configObservers() {
@@ -91,8 +88,8 @@ class ListMovieFragment : Fragment() {
             movie?.let {
                 val bundle = Bundle()
                 bundle.putLong("id", movie.id)
-                this.findNavController().navigate(R.id.action_searchFragment_to_detailMovieActivity, bundle)
-                movieListViewModel.doneNavigateToMovieDatail()
+                findNavController().navigate(R.id.action_searchFragment_to_detailMovieActivity, bundle)
+                movieListViewModel.doneNavigateToMovieDetail()
             }
         })
 
@@ -111,7 +108,7 @@ class ListMovieFragment : Fragment() {
 
     private fun configList(){
         adapterRv = MovieListAdapter(OnClickListener { movie ->
-            movieListViewModel.navigateToMovieDatail(movie)
+            movieListViewModel.navigateToMovieDetail(movie)
         })
 
         val gridLayout = GridLayoutManager(context, 3)

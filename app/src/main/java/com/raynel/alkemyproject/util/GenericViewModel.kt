@@ -3,8 +3,12 @@ package com.raynel.alkemyproject.util
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-open class GenericViewModel : ViewModel(){
+@HiltViewModel
+open class GenericViewModel @Inject constructor() : ViewModel(){
 
     private val _retry: MutableLiveData<Boolean> by lazy { MutableLiveData() }
     fun retry(): LiveData<Boolean> = _retry
