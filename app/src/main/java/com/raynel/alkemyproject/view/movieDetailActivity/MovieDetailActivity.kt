@@ -21,5 +21,12 @@ class MovieDetailActivity : AppCompatActivity() {
             .inflate(layoutInflater)
         // set view in the activity
         setContentView(binding.root)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }
