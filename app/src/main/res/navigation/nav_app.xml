@@ -17,7 +17,11 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.raynel.alkemyproject.view.mainActivity.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailMovieActivity"
+            app:destination="@id/detailMovieActivity" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.raynel.alkemyproject.view.mainActivity.FavoritesFragment.FavoritesFragment"
